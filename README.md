@@ -1,6 +1,6 @@
 ## Dušan Morháč, Richard Medzihradský
 
-## FRONT END APLIKÁCIE
+## BACK END APLIKÁCIE
 
 ### Prerequisites:
 MongoDB 5.0.6\
