@@ -1,5 +1,7 @@
-# a22f1e1ea3d53efac58739afb6209964
-
 Dušan Morháč, Richard Medzihradský
 
 BACK END APLIKÁCIE
+
+Dependencies:
+MongoDB 5.0.6
+NodeJS (16.14 =>)
