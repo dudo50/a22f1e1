@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "622c8bc97d71cd3fbaf0dcc5"
+  },
+  "username": "user123",
+  "email": "jano@jano.sk"
+},{
+  "_id": {
+    "$oid": "622c8c247d71cd3fbaf0dcc6"
+  },
+  "username": "Abdul77",
+  "email": "abdulturuku@gmail.com"
+}]
