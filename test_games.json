@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "622d42a05e3f5e0815e45ce9"
+  },
+  "name": "Heroes of Might and Magic 3",
+  "developer": "New World Computing",
+  "description": "Turn-based strategy fantasy game. Destroy your opponents and retake Erathia.",
+  "published": "03.03.1999"
+},{
+  "_id": {
+    "$oid": "622d43785e3f5e0815e45cea"
+  },
+  "name": "The Elder Scrolls IV: Skyrim",
+  "developer": "Bethesda Game Studios",
+  "description": "Become the Dragonborn and help defend Skyrim from rising dragons.",
+  "published": "11.11.2011"
+}]
