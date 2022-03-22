@@ -32,15 +32,6 @@ class GameController {
         } catch (error) {
             console.log(error)
         }
-
-        /*pageNum = request.GET.get("page",1)
-        perPageNum = request.GET.get("per_page",10)
-        nezobrazujNic=0
-        if(int(pageNum) ==0):
-            nezobrazujNic=1 
-        else:
-            offset = (int(pageNum) * int(perPageNum))-int(perPageNum)
-        limit = int(perPageNum*/
     }
 }
 
