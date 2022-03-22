@@ -9,6 +9,16 @@ class GameController {
             console.log(error)
         }
     }
+
+    static getSpecificGame = async (req, res) => {
+        try {
+            const result = await GamMdl.find({game_id: req.params.gameId})
+            // Tu mozno nejaky 404 handling
+            res.send(result)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default GameController

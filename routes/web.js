@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.get('/profiles', UserController.getAllDoc);
 router.get('/games', GameController.getAllDoc);
+router.get('/game/:gameId', GameController.getSpecificGame);
 
 export default router
