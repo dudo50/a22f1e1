@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "623b54315106bed7644d4cb9"
+  },
+  "review_id": "1",
+  "game": "1",
+  "user": "1",
+  "stars": 4,
+  "text": "It's fine.",
+  "date": "23.03.2022"
+},{
+  "_id": {
+    "$oid": "623b54c85106bed7644d4cba"
+  },
+  "review_id": "2",
+  "game": "2",
+  "user": "47",
+  "stars": 1,
+  "text": "Is just bad.",
+  "date": "22.03.2022"
+}]
