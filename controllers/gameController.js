@@ -13,7 +13,7 @@ class GameController {
     static getSpecificGame = async (req, res) => {
         try {
             const result = await GamMdl.find({game_id: req.params.gameId})
-            // Tu mozno nejaky 404 handling
+            // Tu mozno nejaky 404 handling + ESTE PRIDAT AJ RECENZIE NATIAHNUT
             res.send(result)
         } catch (error) {
             console.log(error)

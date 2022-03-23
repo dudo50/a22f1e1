@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     profilePicture:{type:String, required:true, default:"./assets/profilePic/default.jpg"},
     status:{type:String, enum:['ACTIVE', 'INACTIVE', 'DISABLED'], required:true, default:'INACTIVE'},
     user_id:{type:String, required:true, unique:true, trim:true},
+    review: [{type:String, unique:true}],
 
 })
 

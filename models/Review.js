@@ -6,8 +6,9 @@ const reviewSchema = new mongoose.Schema({
     game:{type:Number, required:true, unique:false, trim:true},
     user:{type:Number, required:true, unique:false, trim:true},
     stars:{type:Number, required:true, unique:false, trim:true},
-    text:{type:String, required:false, unique:false, default:"review"},
+    text:{type:String, required:false, unique:false},
     date:{type:String, required:true, unique:false, trim:true},
+
 
 })
 
