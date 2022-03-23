@@ -5,7 +5,8 @@
   "name": "Heroes of Might and Magic 3",
   "developer": "New World Computing",
   "description": "Turn-based strategy fantasy game. Destroy your opponents and retake Erathia.",
-  "published": "03.03.1999"
+  "published": "03.03.1999",
+  "game_id": "1"
 },{
   "_id": {
     "$oid": "622d43785e3f5e0815e45cea"
@@ -13,5 +14,42 @@
   "name": "The Elder Scrolls IV: Skyrim",
   "developer": "Bethesda Game Studios",
   "description": "Become the Dragonborn and help defend Skyrim from rising dragons.",
-  "published": "11.11.2011"
+  "published": "11.11.2011",
+  "game_id": "2"
+},{
+  "_id": {
+    "$oid": "623a17c3c3d5b7262f8b0b7e"
+  },
+  "name": "Fallout 4",
+  "developer": "Bethesda Game Studios",
+  "description": "Leaving Vault 111, find your way across the Wasteland to find someone you lost.",
+  "published": "10.11.2015",
+  "game_id": "3"
+},{
+  "_id": {
+    "$oid": "623a1876c3d5b7262f8b0b7f"
+  },
+  "name": "Terraria",
+  "developer": "Re-Logic",
+  "description": "Enter the 2D world of blocks, monsters and adventure.",
+  "published": "16.05.2011",
+  "game_id": "4"
+},{
+  "_id": {
+    "$oid": "623a1a29c3d5b7262f8b0b80"
+  },
+  "name": "Wolfenstein: The New Order",
+  "developer": "MachineGames",
+  "description": "Play as B. J. Blazkowicz and try to rebuild the resistance after USA's defeat in the World War II.",
+  "published": "20.05.2014",
+  "game_id": "5"
+},{
+  "_id": {
+    "$oid": "623a1b47c3d5b7262f8b0b81"
+  },
+  "name": "Watch Dogs",
+  "developer": "Ubisoft",
+  "description": "Play as Aiden Pearce, a lonesome vigilant in Chicago's streets, using his tech skills as well as his weapons to fight the ever-present crime.",
+  "published": "27.05.2014",
+  "game_id": "6"
 }]
