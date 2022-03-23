@@ -7,5 +7,8 @@ router.get('/profiles', UserController.getAllDoc);
 router.get('/games', GameController.getAllDoc);
 router.get('/game/:gameId', GameController.getSpecificGame);
 router.get('/game/search/:searchText&:page&:perPage', GameController.getGamesByName);
+router.get('/register/:username&:password&:email', UserController.handleRegister);
+router.get('/login/:username&:password', UserController.handleLogin);
+router.get('/signout/:username&:password', UserController.handleSignout);
 
 export default router
