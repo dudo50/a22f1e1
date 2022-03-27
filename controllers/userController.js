@@ -9,6 +9,20 @@ class UserController {
             console.log(error)
         }
     }
+
+    static getUserDetails = async (req,res) => {
+        try {
+            const query_result = await UsrMdl.find({ $and: [ {username: req.params.username}, {password : req.params.password }]})
+            const username = query_result[0]['username'];
+            res.send(username)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
     static handleLogin = async (req, res) => {
         try {
             if( await UsrMdl.updateOne({ $and: [ {username: req.params.username}, {password : req.params.password }]}, {status:"ACTIVE"}))

@@ -11,8 +11,8 @@ router.get('/game/search/:searchText&:page&:perPage', GameController.getGamesByN
 router.get('/register/:username&:password&:email', UserController.handleRegister);
 router.get('/login/:username&:password', UserController.handleLogin);
 router.get('/signout/:username&:password', UserController.handleSignout);
-router.get('/games/:gameId/&:userId', ReviewController.getUserGameReview);
+router.get('/games/:gameId&:userId', ReviewController.getUserGameReview);
 router.get('/profile/get/:userId', UserController.getById);
 router.get('/profile/update/:userId&:oldPassword&:username&:password&:email&:profilePicture', UserController.updateData);
-
+router.get('/videoconference/profile/:username&:password', UserController.getUserDetails);
 export default router
