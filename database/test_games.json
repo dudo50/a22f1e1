@@ -6,7 +6,10 @@
   "developer": "New World Computing",
   "description": "Turn-based strategy fantasy game. Destroy your opponents and retake Erathia.",
   "published": "03.03.1999",
-  "game_id": "1"
+  "game_id": "1",
+  "reviews": [
+    null
+  ]
 },{
   "_id": {
     "$oid": "622d43785e3f5e0815e45cea"
@@ -15,7 +18,10 @@
   "developer": "Bethesda Game Studios",
   "description": "Become the Dragonborn and help defend Skyrim from rising dragons.",
   "published": "11.11.2011",
-  "game_id": "2"
+  "game_id": "2",
+  "reviews": [
+    null
+  ]
 },{
   "_id": {
     "$oid": "623a17c3c3d5b7262f8b0b7e"
@@ -24,7 +30,10 @@
   "developer": "Bethesda Game Studios",
   "description": "Leaving Vault 111, find your way across the Wasteland to find someone you lost.",
   "published": "10.11.2015",
-  "game_id": "3"
+  "game_id": "3",
+  "reviews": [
+    null
+  ]
 },{
   "_id": {
     "$oid": "623a1876c3d5b7262f8b0b7f"
@@ -33,7 +42,10 @@
   "developer": "Re-Logic",
   "description": "Enter the 2D world of blocks, monsters and adventure.",
   "published": "16.05.2011",
-  "game_id": "4"
+  "game_id": "4",
+  "reviews": [
+    null
+  ]
 },{
   "_id": {
     "$oid": "623a1a29c3d5b7262f8b0b80"
@@ -42,7 +54,10 @@
   "developer": "MachineGames",
   "description": "Play as B. J. Blazkowicz and try to rebuild the resistance after USA's defeat in the World War II.",
   "published": "20.05.2014",
-  "game_id": "5"
+  "game_id": "5",
+  "reviews": [
+    null
+  ]
 },{
   "_id": {
     "$oid": "623a1b47c3d5b7262f8b0b81"
@@ -51,5 +66,8 @@
   "developer": "Ubisoft",
   "description": "Play as Aiden Pearce, a lonesome vigilant in Chicago's streets, using his tech skills as well as his weapons to fight the ever-present crime.",
   "published": "27.05.2014",
-  "game_id": "6"
+  "game_id": "6",
+  "reviews": [
+    null
+  ]
 }]
