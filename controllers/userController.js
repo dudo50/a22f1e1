@@ -47,6 +47,39 @@ class UserController {
             console.log(error)
         }
     }
+    static getById = async (req, res) => {
+        console.log("Getting user by ID " + String(req.params.userId));
+        try {
+            const query_result = await UsrMdl.find({user_id: req.params.userId});
+            res.send(query_result);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    static updateData = async (req, res) => {
+        console.log("Trying to update data");
+        try {
+            const query_result = await UsrMdl.find({user_id: req.params.userId});
+            const old_password = query_result[0]['password'];
+            if (old_password == req.params.oldPassword) {
+                // Is this okay for PUT method?
+                console.log("Password OK, updating profile")
+                await UsrMdl.updateOne({user_id: req.params.userId}, {
+                    username:req.params.username,
+                    password:req.params.password,
+                    email:req.params.email,
+                    profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')});
+                res.send("Profile updated!")
+            }
+            else {
+                res.send("Incorrect password!");
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 export default UserController

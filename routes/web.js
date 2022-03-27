@@ -12,5 +12,7 @@ router.get('/register/:username&:password&:email', UserController.handleRegister
 router.get('/login/:username&:password', UserController.handleLogin);
 router.get('/signout/:username&:password', UserController.handleSignout);
 router.get('/games/:gameId/&:userId', ReviewController.getUserGameReview);
+router.get('/profile/get/:userId', UserController.getById);
+router.get('/profile/update/:userId&:oldPassword&:username&:password&:email&:profilePicture', UserController.updateData);
 
 export default router
