@@ -45,9 +45,10 @@ class UserController {
     static handleRegister = async (req, res) => {
         try {
             //EXISTUJE USER?
-            const query = await UsrMdl.find({username: req.params.username, password: req.params.password, email: req.params.email })
+            const query = await UsrMdl.find({$or: [{username: req.params.username}, {email: req.params.email }]})
+            console.log(query)
             if(query.length > 0){
-                res.send("User already exists!")
+                res.send("Details already exists!")
             }
             else{
 
