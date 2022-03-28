@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     password:{type:String, required:true, trim:true},
     profilePicture:{type:String, required:true, default:"./assets/profilePic/default.jpg"},
     status:{type:String, enum:['ACTIVE', 'INACTIVE', 'DISABLED'], required:true, default:'INACTIVE'},
-    user_id:{type:String, required:true, unique:true, trim:true},
+    user_id:{type:Number, required:true, unique:true, trim:true},
     reviews: [{type:String, unique:false, default:"0"}],
 
 })

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const reviewSchema = new mongoose.Schema({
-    review_id:{type:String, required:true, unique:true, trim:true},
+    review_id:{type:Number, required:true, unique:true, trim:true},
     game:{type:Number, required:true, unique:false, trim:true},
     user:{type:Number, required:true, unique:false, trim:true},
     stars:{type:Number, required:true, unique:false, trim:true},

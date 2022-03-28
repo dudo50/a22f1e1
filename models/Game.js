@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const gameSchema = new mongoose.Schema({
-    game_id:{type:String, required:true, unique:true, trim:true},
+    game_id:{type:Number, required:true, unique:true, trim:true},
     name:{type:String, required:true, unique:false, trim:true},
     picture:{type:String, required:true, default:"./assets/gamePic/default.jpg"},
     developer:{type:String, required:true, unique:false, trim:true},

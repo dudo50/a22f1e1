@@ -17,24 +17,32 @@ class reviewController {
 
 static createReview = async (req, res) => {
     try {
+        //check ci review neexistuje od daneho usera
         const query = await RevMdl.find({ $and: [ {user: req.params.userId}, {game : req.params.gameId }]})
         if(query.length==0){
+            //check ci user existuje a je lognuty
             const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.params.userId}, {password : req.params.password }]})
-            if(query_passwd.length != 0){
-                const query_result = await RevMdl.find().sort({'review_id': -1}).select('review_id').limit(1)   // zored tabulku podla user_id, vrat iba 1 prvok
-                const nove_id = String(Number(query_result[0]['review_id']) + 1);     // Prehod hodnotu na cislo, +1, preved naspat na string
-                const now = new Date();
-                //overime si ci user existuje
-                await RevMdl.create({ review_id: nove_id, game : req.params.gameId, user:req.params.userId, stars: req.params.stars, text: req.params.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
-                await GamMdl.updateOne({game_id: req.params.gameId},{$push: { reviews: nove_id }})
-                await UsrMdl.updateOne({user_id: req.params.userId},{$push: { reviews: nove_id }})
-                res.send("ok")
+            if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
+                //check ci id hry existuje
+                const query_game = await GamMdl.find({game_id: req.params.gameId})
+                if(query_game.length != 0){
+                    const query_result = await RevMdl.find().sort({'review_id': -1}).select('review_id').limit(1)   // zored tabulku podla user_id, vrat iba 1 prvok
+                    const nove_id = String(Number(query_result[0]['review_id']) + 1);     // Prehod hodnotu na cislo, +1, preved naspat na string
+                    const now = new Date();
+                    //overime si ci user existuje
+                    await RevMdl.create({ review_id: nove_id, game : req.params.gameId, user:req.params.userId, stars: req.params.stars, text: req.params.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
+                    await GamMdl.updateOne({game_id: req.params.gameId},{$push: { reviews: nove_id }})
+                    await UsrMdl.updateOne({user_id: req.params.userId},{$push: { reviews: nove_id }})
+                    res.send("Data written.")
+                }
+                else
+                    res.send("Game you try to write review for does not exist!")
             }
             else
-            res.send("Bad password!")
+            res.send("Bad user password or INACTIVE user!")
         }
         else
-        res.send("Not ok!")
+        res.send("You already have review!")
     }
     catch (error) {
         console.log(error)
@@ -48,17 +56,17 @@ static reviseReview = async (req, res) => {
         if(query.length!=0){
             const queryId = query[0]['review_id'];
             const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.params.userId}, {password : req.params.password }]})
-            if(query_passwd.length != 0){
+            if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
                 //overime si ci user existuje
                 const now = new Date();
                 await RevMdl.updateOne({review_id: queryId },{stars: req.params.stars, text: req.params.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
-                res.send("ok")
+                res.send("Data written.")
             }
             else
-            res.send("Bad password!")
+            res.send("Bad user password or INACTIVE user!")
         }
         else
-        res.send("Not ok!")
+        res.send("Review does not exist!")
     }
     catch (error) {
         console.log(error)
@@ -67,21 +75,24 @@ static reviseReview = async (req, res) => {
 
 static deleteReview = async (req, res) => {
     try {
+
+        //existuje review?
         const query = await RevMdl.find({ $and: [ {user: req.params.userId}, {game : req.params.gameId }]})
         if(query.length!=0){
+            //existuje user a je lognuty?
             const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.params.userId}, {password : req.params.password }]})
-            if(query_passwd.length != 0){
+            if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
                 const idecka = query[0]['review_id'];
                 await RevMdl.remove({review_id: idecka})
                 await GamMdl.updateOne({game_id: req.params.gameId},{$pull: { reviews: idecka }})
                 await UsrMdl.updateOne({user_id: req.params.userId},{$pull: { reviews: idecka }})
-                res.send("ok")
+                res.send("Data written.")
             }
             else
-            res.send("Bad password!")
+            res.send("Bad user password or INACTIVE user!")
         }
         else
-        res.send("Not ok!")
+        res.send("Unable to delete review that does not exist!")
     }
     catch (error) {
         console.log(error)

@@ -1,4 +1,5 @@
 import UsrMdl from '../models/User.js'
+import RevMdl from '../models/Review.js'
 
 class UserController {
     static getAllDoc = async (req, res) => {
@@ -25,9 +26,17 @@ class UserController {
 
     static handleLogin = async (req, res) => {
         try {
-            if( await UsrMdl.updateOne({ $and: [ {username: req.params.username}, {password : req.params.password }]}, {status:"ACTIVE"}))
-            //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
-            res.send("OK")
+            //JE USER LOGNUTY?
+            const query = await UsrMdl.find({username: req.params.username, password: req.params.password })
+            const status = query[0]['status'];
+            console.log(query)
+            if(status == "INACTIVE"){
+                await UsrMdl.updateOne({username: req.params.username, password : req.params.password }, {status:"ACTIVE"})
+                //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
+                res.send("User successfuly logged in")
+            }    
+            else
+                res.send("User could not be signed in")
         }
         catch (error) {
             console.log(error)
@@ -35,6 +44,13 @@ class UserController {
     }
     static handleRegister = async (req, res) => {
         try {
+            //EXISTUJE USER?
+            const query = await UsrMdl.find({username: req.params.username, password: req.params.password, email: req.params.email })
+            if(query.length > 0){
+                res.send("User already exists!")
+            }
+            else{
+
             //QUERY FOR HIGHEST USER ID
             const query_result = await UsrMdl.find().sort({'user_id': -1}).select('user_id').limit(1)   // zored tabulku podla user_id, vrat iba 1 prvok
             const nove_id = String(Number(query_result[0]['user_id']) + 1);     // Prehod hodnotu na cislo, +1, preved naspat na string
@@ -44,7 +60,8 @@ class UserController {
             await UsrMdl.updateOne({ $and: [ {username: req.params.username}, {password : req.params.password }]}, {status:"ACTIVE"})
             
             //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER REGNUTY
-            res.send("OK")
+            res.send("User registered and logged in successfuly.")
+            }
         }
         catch (error) {
             console.log(error)
@@ -53,9 +70,17 @@ class UserController {
 
     static handleSignout = async (req, res) => {
         try {
-            if( await UsrMdl.updateOne({ $and: [ {username: req.params.username}, {password : req.params.password }]}, {status:"INACTIVE"}))
-            //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
-            res.send("OK")
+            //JE USER PRIHLASENY? 
+            const query = await UsrMdl.find({username: req.params.username, password: req.params.password })
+            const status = query[0]['status'];
+            if(status == "ACTIVE"){
+
+                if( await UsrMdl.updateOne({ $and: [ {username: req.params.username}, {password : req.params.password }]}, {status:"INACTIVE"}))
+                //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
+                res.send("User signed out correctly.")
+            }
+            else
+                res.send("User is not logged in!")
         }
         catch (error) {
             console.log(error)
@@ -94,6 +119,34 @@ class UserController {
             console.log(error);
         }
     }
+
+    static updatePhoto = async (req, res) => {
+        try {
+            //kontrola pw
+            //const query = await UsrMdl.find({ $and: [ {username: req.params.username}, {password : req.params.password }]})
+            //if(query.length!=0){
+            console.log("HI")
+                //const __dirname = path.resolve();
+                //const pathToFile = path.join(__dirname, req.params.photo);
+                //res.sendFile(req.file, pathToFile , function (err) {
+                //  if (err) next(err);
+                //    else console.log('Sent:', file);
+                //  });
+                //update cesty ku fotke
+                //await UsrMdl.updateOne({user_id: req.params.userId}, {profilePicture: newLink })
+
+            //}
+            //else{
+            //    res.send("Bad user!")
+            //}
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
 }
 
 export default UserController

@@ -2,7 +2,7 @@ import express from 'express';
 import GameController from '../controllers/gameController.js';
 import UserController from '../controllers/userController.js';
 import ReviewController from '../controllers/reviewController.js'
-import reviewController from '../controllers/reviewController.js';
+
 const router = express.Router();
 
 router.get('/profiles', UserController.getAllDoc);
@@ -19,6 +19,6 @@ router.get('/videoconference/profile/:username&:password', UserController.getUse
 router.get('/game/:gameId/post/:userId&:password/:stars&:text', ReviewController.createReview);
 router.get('/game/:gameId/delete/:userId&:password', ReviewController.deleteReview);
 router.get('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview);
-
+router.get('/profile/:userId&:password/:photo', UserController.updatePhoto)
 
 export default router
