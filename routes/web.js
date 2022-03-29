@@ -5,26 +5,26 @@ import ReviewController from '../controllers/reviewController.js'
 
 const router = express.Router();
 
-router.get('/games', GameController.getAllDoc);
-router.get('/game/:gameId', GameController.getSpecificGame);
-router.get('/game/search/:searchText&:page&:perPage', GameController.getGamesByName);
-router.get('/game/add/:name&:picture&:developer&:released&:description', GameController.createGame)
-router.get('/game/tags/:game_id&:tag', GameController.updateTag)
-router.get('/game/link/:game_id&:link', GameController.updateLink)
+router.get('/games', GameController.getAllDoc); //TESTED FINE
+router.get('/game/:gameId', GameController.getSpecificGame); //TESTED FINE
+router.get('/game/search/:searchText&:page&:perPage', GameController.getGamesByName); //TESTED FINE
+router.post('/game/add', GameController.createGame) //TESTED FINE
+router.put('/game/tags/:game_id&:tag', GameController.updateTag) //TESTED FINE
+router.put('/game/link/:game_id&:link', GameController.updateLink) //TESTED FINE
 
-router.get('/profiles', UserController.getAllDoc);
-router.get('/register/:username&:password&:email', UserController.handleRegister);
-router.get('/login/:username&:password', UserController.handleLogin);
-router.get('/signout/:username&:password', UserController.handleSignout);
-router.get('/profile/get/:userId', UserController.getById);
-router.get('/profile/update/:userId&:oldPassword&:username&:password&:email&:profilePicture', UserController.updateData);
-router.get('/videoconference/profile/:username&:password', UserController.getUserDetails);
-router.get('/profile/:userId&:password/:photo', UserController.updatePhoto)
+router.get('/profiles', UserController.getAllDoc);  //TESTED FINE
+router.post('/register', UserController.handleRegister); //TESTED FINE
+router.put('/login/:username&:password', UserController.handleLogin); //TESTED FINE
+router.put('/signout/:username&:password', UserController.handleSignout); //TESTED FINE
+router.get('/profile/get/:userId', UserController.getById); //TESTED FINE
+router.put('/profile/update/:userId&:oldPassword&:username&:password&:email', UserController.updateData); //TESTED FINE
+router.get('/videoconference/profile/:username&:password', UserController.getUserDetails); //TESTED FINE
+router.put('/profile/:userId&:password/:photo', UserController.updatePhoto) //NOT DONE YET
 
-router.get('/game/:gameId/post/:userId&:password/:stars&:text', ReviewController.createReview);
-router.get('/game/:gameId/delete/:userId&:password', ReviewController.deleteReview);
-router.get('/game/:gameId&:userId', ReviewController.getUserGameReview);
-router.get('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview);
+router.post('/game/:password/post', ReviewController.createReview); //TESTED FINE
+router.delete('/game/:gameId/delete/:userId&:password', ReviewController.deleteReview); //TESTED FINE
+router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTED FINE
+router.put('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview); //TESTED FINE
 
 
 export default router

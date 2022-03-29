@@ -5,7 +5,8 @@ import GamMdl from "../models/Game.js"
 class reviewController {
     static getUserGameReview = async (req, res) => {
         try {
-            const result = await RevMdl.find({'user': req.params.userId, 'game': req.params.gameId})
+            console.log(req.params.userId, req.params.gameId)
+            const result = await RevMdl.find({user: parseInt(req.params.userId), game: parseInt(req.params.gameId)})
             res.send(result)
         }
         catch (error) {
@@ -18,21 +19,25 @@ class reviewController {
 static createReview = async (req, res) => {
     try {
         //check ci review neexistuje od daneho usera
-        const query = await RevMdl.find({ $and: [ {user: req.params.userId}, {game : req.params.gameId }]})
+        const query = await RevMdl.find({ $and: [ {user: req.body.user}, {game : req.body.game }]})
         if(query.length==0){
             //check ci user existuje a je lognuty
-            const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.params.userId}, {password : req.params.password }]})
+            const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.body.user}, {password : req.params.password }]})
             if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
                 //check ci id hry existuje
-                const query_game = await GamMdl.find({game_id: req.params.gameId})
+                const query_game = await GamMdl.find({game_id: req.body.game})
                 if(query_game.length != 0){
-                    const query_result = await RevMdl.find().sort({'review_id': -1}).select('review_id').limit(1)   // zored tabulku podla user_id, vrat iba 1 prvok
-                    const nove_id = String(Number(query_result[0]['review_id']) + 1);     // Prehod hodnotu na cislo, +1, preved naspat na string
+                    var nove_id=1
+                    const query_result = await RevMdl.find().sort({'review_id': -1}).select('review_id').limit(1) 
+                    if(query_result.length != 0)  
+                    {// zored tabulku podla user_id, vrat iba 1 prvok
+                     nove_id = String(Number(query_result[0]['review_id']) + 1) 
+                    }   // Prehod hodnotu na cislo, +1, preved naspat na string
                     const now = new Date();
                     //overime si ci user existuje
-                    await RevMdl.create({ review_id: nove_id, game : req.params.gameId, user:req.params.userId, stars: req.params.stars, text: req.params.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
-                    await GamMdl.updateOne({game_id: req.params.gameId},{$push: { reviews: nove_id }})
-                    await UsrMdl.updateOne({user_id: req.params.userId},{$push: { reviews: nove_id }})
+                    await RevMdl.create({ review_id: nove_id, game : req.body.game, user:req.body.user, stars: req.body.stars, text: req.body.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
+                    await GamMdl.updateOne({game_id: req.body.game},{$push: { reviews: nove_id }})
+                    await UsrMdl.updateOne({user_id: req.body.user},{$push: { reviews: nove_id }})
                     res.send("Data written.")
                 }
                 else
@@ -59,8 +64,10 @@ static reviseReview = async (req, res) => {
             if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
                 //overime si ci user existuje
                 const now = new Date();
-                await RevMdl.updateOne({review_id: queryId },{stars: req.params.stars, text: req.params.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
-                res.send("Data written.")
+                console.log(queryId, req.params.stars, req.params.text)
+
+                const data = await RevMdl.updateOne({review_id: queryId },{stars: req.params.stars, text: req.params.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
+                res.send(data)
             }
             else
             res.send("Bad user password or INACTIVE user!")

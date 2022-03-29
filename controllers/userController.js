@@ -44,7 +44,7 @@ class UserController {
     static handleRegister = async (req, res) => {
         try {
             //EXISTUJE USER?
-            const query = await UsrMdl.find({$or: [{username: req.params.username}, {email: req.params.email }]})
+            const query = await UsrMdl.find({$or: [{username: req.body.username}, {email: req.body.email }]})
             console.log(query)
             if(query.length > 0){
                 res.send("Details already exists!")
@@ -52,12 +52,16 @@ class UserController {
             else{
 
             //QUERY FOR HIGHEST USER ID
-            const query_result = await UsrMdl.find().sort({'user_id': -1}).select('user_id').limit(1)   // zored tabulku podla user_id, vrat iba 1 prvok
-            const nove_id = String(Number(query_result[0]['user_id']) + 1);     // Prehod hodnotu na cislo, +1, preved naspat na string
+            var nove_id=1
+            const query_result = await UsrMdl.find().sort({'user_id': -1}).select('user_id').limit(1) 
+            if(query_result.length != 0)  
+            {// zored tabulku podla user_id, vrat iba 1 prvok
+                nove_id = String(Number(query_result[0]['user_id']) + 1) 
+            }   // Prehod hodnotu na cislo, +1, preved naspat na string
 
-            if( await UsrMdl.create({ username: req.params.username, password : req.params.password, email:req.params.email, user_id: nove_id}))
+            if( await UsrMdl.create({ username: req.body.username, password : req.body.password, email:req.body.email, user_id: nove_id}))
             //PO REGISTRACII HNED LOGNEME
-            await UsrMdl.updateOne({ $and: [ {username: req.params.username}, {password : req.params.password }]}, {status:"ACTIVE"})
+            await UsrMdl.updateOne({ $and: [ {username: req.body.username}, {password : req.body.password }]}, {status:"ACTIVE"})
             
             //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER REGNUTY
             res.send("User registered and logged in successfuly.")
@@ -108,7 +112,8 @@ class UserController {
                     username:req.params.username,
                     password:req.params.password,
                     email:req.params.email,
-                    profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')});
+                    //profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')
+                });
                 res.send("Profile updated!")
             }
             else {

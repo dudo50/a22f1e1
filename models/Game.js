@@ -10,8 +10,8 @@ const gameSchema = new mongoose.Schema({
     description:{type:String, required:true, unique:false, trim:true},
     released:{type:String, required:true, unique:false, trim:true},
     link:{type:String, required:false, unique:false, trim:true},
-    tags: [{type:String, enum: taglist, required:false, runValidators: true }],
-    reviews: [{type:String, unique:false, default: "0"}],
+    tags:[{type:String, enum: taglist, required:false, runValidators: true }],
+    reviews:[{type:String, required:false, unique:false,sparse:true}],
 
 })
 
