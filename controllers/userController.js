@@ -1,5 +1,4 @@
 import UsrMdl from '../models/User.js'
-import RevMdl from '../models/Review.js'
 
 class UserController {
     static getAllDoc = async (req, res) => {

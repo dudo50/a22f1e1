@@ -20,6 +20,44 @@ class GameController {
         }
     }
 
+    static createGame = async (req, res) => {
+        try {
+            //overime si ci dana hra uz neexistuje
+           // const query = await GamMdl.find()
+            //pridame hru
+            const query_result = await GamMdl.find().sort({'game_id': -1}).select('game_id').limit(1)   // zored tabulku podla user_id, vrat iba 1 prvok
+            const nove_id = String(Number(query_result[0]['game_id']) + 1) 
+            console.log(nove_id, query_result)    // Prehod hodnotu na cislo, +1, preved naspat na string
+            const result = await GamMdl.create({ game_id: nove_id,name: req.params.name, picture: req.params.picture, developer: req.params.developer, description: req.params.description, released: req.params.released  })
+            // Tu mozno nejaky 404 handling + ESTE PRIDAT AJ RECENZIE NATIAHNUT
+            res.send(result)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static updateTag = async (req, res) => {
+        try {
+            const opts = { runValidators: true };
+            await GamMdl.updateOne({game_id: req.params.game_id},{ tags: req.params.tag },opts)
+            // Tu mozno nejaky 404 handling + ESTE PRIDAT AJ RECENZIE NATIAHNUT
+            res.send("Tag added successfully")
+        } catch (error) {
+            res.send("Tag is not allowed!")
+            console.log(error)
+        }
+    }
+
+    static updateLink = async (req, res) => {
+        try {
+            await GamMdl.updateOne({game_id: req.params.game_id},{link: req.params.link})
+            // Tu mozno nejaky 404 handling + ESTE PRIDAT AJ RECENZIE NATIAHNUT
+            res.send("Link added successfuly")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     static getGamesByName = async (req, res) => {
         //Cislo stranky a pocet na stranku
 
