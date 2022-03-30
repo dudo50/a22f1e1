@@ -26,6 +26,4 @@ router.delete('/game/:gameId/delete/:userId&:password', ReviewController.deleteR
 router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTED FINE
 router.put('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview); //TESTED FINE
 
-//router.patch('/user/:userId', upload, UserController.updatePhoto)
-
 module.exports = router;
