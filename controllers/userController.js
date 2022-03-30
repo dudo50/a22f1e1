@@ -21,8 +21,6 @@ class UserController {
         }
     }
 
-
-
     static handleLogin = async (req, res) => {
         try {
             //JE USER LOGNUTY?
@@ -41,6 +39,7 @@ class UserController {
             console.log(error)
         }
     }
+
     static handleRegister = async (req, res) => {
         try {
             //EXISTUJE USER?
@@ -90,6 +89,7 @@ class UserController {
             console.log(error)
         }
     }
+
     static getById = async (req, res) => {
         console.log("Getting user by ID " + String(req.params.userId));
         try {
@@ -100,11 +100,18 @@ class UserController {
             console.log(error)
         }
     }
+
     static updateData = async (req, res) => {
         console.log("Trying to update data");
+        console.log(req.params);
         try {
             const query_result = await UsrMdl.find({user_id: req.params.userId});
+            console.log(query_result);
             const old_password = query_result[0]['password'];
+            console.log(old_password);
+            // var profileImg = new Image();
+            var profileImg = document.createElement("img");
+            profileImg.src = (req.params.profilePicture).replaceAll('%2F', '/');
             if (old_password == req.params.oldPassword) {
                 // Is this okay for PUT method?
                 console.log("Password OK, updating profile")
@@ -112,8 +119,8 @@ class UserController {
                     username:req.params.username,
                     password:req.params.password,
                     email:req.params.email,
-                    //profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')
-                });
+                    //profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')});
+                    profilePicture:null});
                 res.send("Profile updated!")
             }
             else {
@@ -149,9 +156,6 @@ class UserController {
             console.log(error)
         }
     }
-
-
-
 }
 
 export default UserController
