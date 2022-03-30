@@ -1,7 +1,7 @@
-import express from 'express';
-import GameController from '../controllers/gameController.js';
-import UserController from '../controllers/userController.js';
-import ReviewController from '../controllers/reviewController.js'
+const express = require ('express');
+const GameController = require ('../controllers/gameController.js');
+const UserController = require ('../controllers/userController.js');
+const ReviewController = require ('../controllers/reviewController.js')
 
 const router = express.Router();
 
@@ -19,12 +19,13 @@ router.put('/signout/:username&:password', UserController.handleSignout); //TEST
 router.get('/profile/get/:userId', UserController.getById); //TESTED FINE
 router.put('/profile/update/:userId&:oldPassword&:username&:password&:email', UserController.updateData); //TESTED FINE
 router.get('/videoconference/profile/:username&:password', UserController.getUserDetails); //TESTED FINE
-router.put('/profile/:userId&:password/:photo', UserController.updatePhoto) //NOT DONE YET
+router.post('/profile/:userId&:password', UserController.updatePhoto) //NOT DONE YET
 
 router.post('/game/:password/post', ReviewController.createReview); //TESTED FINE
 router.delete('/game/:gameId/delete/:userId&:password', ReviewController.deleteReview); //TESTED FINE
 router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTED FINE
 router.put('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview); //TESTED FINE
 
+//router.patch('/user/:userId', upload, UserController.updatePhoto)
 
-export default router
+module.exports = router;

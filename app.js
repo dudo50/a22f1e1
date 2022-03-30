@@ -1,8 +1,13 @@
-import express from 'express'
-import connectDB from "./db/connectdb.js";
-import web from "./routes/web.js";
-import bodyParser from "body-parser"
+const express = require( 'express' )
+const connectDB = require ("./db/connectdb.js");
+const web = require ("./routes/web.js");
+const bodyParser = require ('body-parser');
+const cors = require ('cors');
+
 const app = express()
+
+app.use('/uploads', express.static('uploads'));
+app.use(cors());
 
 const port = process.env.PORT || '8000'
 app.use(bodyParser.urlencoded({ extended: true }));

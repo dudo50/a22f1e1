@@ -1,6 +1,6 @@
-import RevMdl from "../models/Review.js"
-import UsrMdl from "../models/User.js"
-import GamMdl from "../models/Game.js"
+const RevMdl = require ("../models/Review.js")
+const UsrMdl = require ("../models/User.js")
+const GamMdl = require  ("../models/Game.js")
 
 class reviewController {
     static getUserGameReview = async (req, res) => {
@@ -108,4 +108,5 @@ static deleteReview = async (req, res) => {
 
 }
 
-export default reviewController;
+
+module.exports = reviewController;

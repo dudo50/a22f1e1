@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require ("mongoose");
 
 const taglist = ["2D","3D","AUCTION","RPG","ARCADE","BASE BUILDING","SPORT","BATTLE ROYALE", "BOARD GAME", "BUILDING", "CARD GAME","EXPLORATION","FARMING","HACKING","HIDDEN OBJECT","HORROR","MANAGEMENT","MINING","MMORPG","OPEN WORLD","PLATFORMER","SANDBOX","SHOOTER","STRATEGY RPG","SURVIVAL","TOWER DEFENCE","TURN BASED STRATEGY", "WALKING SIMULATOR"]
 
@@ -17,7 +17,8 @@ const gameSchema = new mongoose.Schema({
 
 const GamMdl = mongoose.model("game", gameSchema)
 
-export default GamMdl
+
+module.exports = GamMdl;
 
 /*
 NOTE: Getting date from database:

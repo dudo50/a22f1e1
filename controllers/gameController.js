@@ -1,5 +1,5 @@
-import { query } from 'express'
-import GamMdl from '../models/Game.js'
+const express = require ('express')
+const GamMdl = require ('../models/Game.js')
 
 class GameController {
     static getAllDoc = async (req, res) => {
@@ -77,4 +77,5 @@ class GameController {
     }
 }
 
-export default GameController
+
+module.exports = GameController;

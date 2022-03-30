@@ -1,4 +1,5 @@
-import UsrMdl from '../models/User.js'
+const UsrMdl = require ('../models/User.js')
+
 
 class UserController {
     static getAllDoc = async (req, res) => {
@@ -128,23 +129,36 @@ class UserController {
     static updatePhoto = async (req, res) => {
         try {
             //kontrola pw
+             const userid = req.params._id;
+            
+                if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+            
+                const path = req.file.path.replace(/\\/g, "/")
+            
+                await User.update({user_id: userid}, {profilePicture: path} );
+                res.json("OK");
+            }
             //const query = await UsrMdl.find({ $and: [ {username: req.params.username}, {password : req.params.password }]})
             //if(query.length!=0){
-            console.log("HI")
-                //const __dirname = path.resolve();
-                //const pathToFile = path.join(__dirname, req.params.photo);
-                //res.sendFile(req.file, pathToFile , function (err) {
-                //  if (err) next(err);
-                //    else console.log('Sent:', file);
-                //  });
-                //update cesty ku fotke
-                //await UsrMdl.updateOne({user_id: req.params.userId}, {profilePicture: newLink })
-
+            /*var form = new IncomingForm.IncomingForm()
+            form.uploadDir = 'uploads'
+            form.parse(req, function(err, fields, files) {
+              if (err) {
+                console.log('some error', err)
+              } else if (!files.file) {
+                console.log('no file received')
+              } else {
+                var file = files.file
+                console.log('saved file to', file.path)
+                console.log('original name', file.name)
+                console.log('type', file.type)
+                console.log('size', file.size)
+                }
+            })*/
             //}
             //else{
             //    res.send("Bad user!")
             //}
-        }
         catch (error) {
             console.log(error)
         }
@@ -154,4 +168,5 @@ class UserController {
 
 }
 
-export default UserController
+
+module.exports = UserController;
