@@ -5,7 +5,8 @@ const connectDB = async (DATABASE_URL) => {
         const DB_OPTIONS = {
             dbName: 'mtaa',
         }
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/game-browser-application');
+        await mongoose.connect(DATABASE_URL, DB_OPTIONS);
+
         console.log('Connected Successfully..');
     } catch (err) { 
         console.log(err);
