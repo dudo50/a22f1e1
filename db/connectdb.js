@@ -1,11 +1,11 @@
 const mongoose = require ('mongoose');
-
+const dotenv = require('dotenv').config()
 const connectDB = async (DATABASE_URL) => {
     try {
         const DB_OPTIONS = {
             dbName: 'mtaa',
         }
-        await mongoose.connect(DATABASE_URL, DB_OPTIONS);
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/game-browser-applicationnpm install dotenv');
         console.log('Connected Successfully..');
     } catch (err) { 
         console.log(err);
