@@ -2,7 +2,18 @@ const express = require ('express');
 const GameController = require ('../controllers/gameController.js');
 const UserController = require ('../controllers/userController.js');
 const ReviewController = require ('../controllers/reviewController.js')
+var multer = require("multer")
 
+var storage = multer.diskStorage({   
+    destination: function(req, file, cb) { 
+       cb(null, './assets/profilePic/');    
+    }, 
+    filename: function (req, file, cb) { 
+       cb(null , file.originalname);   
+    }
+ });
+
+ var upload = multer({ storage: storage }).single("demo_image");
 const router = express.Router();
 
 router.get('/games', GameController.getAllDoc); //TESTED FINE
@@ -19,15 +30,16 @@ router.put('/signout/:username&:password', UserController.handleSignout); //TEST
 router.get('/profile/get/:userId', UserController.getById); //TESTED FINE
 router.put('/profile/update/:userId&:oldPassword&:username&:password&:email', UserController.updateData); //TESTED FINE
 router.get('/videoconference/profile/:username&:password', UserController.getUserDetails); //TESTED FINE
-router.post('/profile/:userId&:password', UserController.updatePhoto) //NOT DONE YET
+
 
 router.post('/game/:password/post', ReviewController.createReview); //TESTED FINE
 router.delete('/game/:gameId/delete/:userId&:password', ReviewController.deleteReview); //TESTED FINE
 router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTED FINE
 router.put('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview); //TESTED FINE
 
-module.exports = router;
+router.route("/upload/picture/:userId&:password").post(upload,  UserController.updatePhoto) //TESTED FINE
 
+module.exports = router;
 
 //firebase
 //heroku

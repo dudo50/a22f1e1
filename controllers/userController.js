@@ -1,5 +1,5 @@
 const UsrMdl = require ('../models/User.js')
-
+var fs = require('fs');
 
 class UserController {
     static getAllDoc = async (req, res) => {
@@ -128,37 +128,32 @@ class UserController {
 
     static updatePhoto = async (req, res) => {
         try {
-            //kontrola pw
-             const userid = req.params._id;
-            
-                if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-            
-                const path = req.file.path.replace(/\\/g, "/")
-            
-                await User.update({user_id: userid}, {profilePicture: path} );
-                res.json("OK");
-            }
-            //const query = await UsrMdl.find({ $and: [ {username: req.params.username}, {password : req.params.password }]})
-            //if(query.length!=0){
-            /*var form = new IncomingForm.IncomingForm()
-            form.uploadDir = 'uploads'
-            form.parse(req, function(err, fields, files) {
-              if (err) {
-                console.log('some error', err)
-              } else if (!files.file) {
-                console.log('no file received')
-              } else {
-                var file = files.file
-                console.log('saved file to', file.path)
-                console.log('original name', file.name)
-                console.log('type', file.type)
-                console.log('size', file.size)
+                const query = await UsrMdl.find({$and: [{user_id: req.params.userId}, {password: req.params.password }]})
+                if(query.length > 0){
+                    const query = await UsrMdl.find({user_id: req.params.userId, password: req.params.password })
+                    const status = query[0]['status'];
+                    if(status == "ACTIVE"){
+                        //get file route
+                        //get route to db
+                        const queryy = await UsrMdl.updateOne({$and: [{user_id: req.params.userId}, {password: req.params.password }]}, {profilePicture: req.file.path})
+                        console.log(queryy)
+                        res.send("File uploaded")
+                    }
+                    else
+                    {
+                        //vymaz file
+                        fs.unlinkSync(req.file.path)
+                        res.send("User is not logged in!")
+                    }
                 }
-            })*/
-            //}
-            //else{
-            //    res.send("Bad user!")
-            //}
+                else{
+
+                    //vymaz file
+                    fs.unlinkSync(req.file.path)
+                    res.send("User does not exist!")
+                }
+            }
+        
         catch (error) {
             console.log(error)
         }
