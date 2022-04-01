@@ -12,7 +12,7 @@ app.use(cors());
 const port = process.env.PORT || '8000'
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-const DATABASE_URL = process.env.DATABASE_URL || "mongodb+srv://dudo:heslo123@mtaa.nptmr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const DATABASE_URL = process.env.DATABASE_URL || "mongodb+srv://dudo:heslo123@mtaa.nptmr.mongodb.net/mtaa?retryWrites=true&w=majority";
 connectDB(DATABASE_URL);
 app.use(express.json())
 
