@@ -27,3 +27,7 @@ router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTE
 router.put('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview); //TESTED FINE
 
 module.exports = router;
+
+
+//firebase
+//heroku
