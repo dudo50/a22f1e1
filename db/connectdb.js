@@ -5,7 +5,7 @@ const connectDB = async (DATABASE_URL) => {
         const DB_OPTIONS = {
             dbName: 'mtaa',
         }
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/game-browser-applicationnpm install dotenv');
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/game-browser-application');
         console.log('Connected Successfully..');
     } catch (err) { 
         console.log(err);
