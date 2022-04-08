@@ -67,8 +67,7 @@ class GameController {
 
         try {
             const result = await GamMdl.find({name: {$regex: req.params.searchText, $options: 'i'}}, 
-            ['game_id', 'name', 'developer', 'description', 'published'], 
-            {skip: Number(req.params.page) * Number(req.params.perPage), limit: Number(req.params.perPage)})
+            ['game_id', 'name', 'picture' , 'developer', 'description', 'released', 'link','tags', 'reviews'])
             // Tu mozno nejaky 404 handling
             res.send(result)
         } catch (error) {

@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.get('/games', GameController.getAllDoc); //TESTED FINE
 router.get('/game/:gameId', GameController.getSpecificGame); //TESTED FINE
-router.get('/game/search/:searchText&:page&:perPage', GameController.getGamesByName); //TESTED FINE
+router.get('/game/search/:searchText', GameController.getGamesByName); //TESTED FINE
 router.post('/game/add', GameController.createGame) //TESTED FINE
 router.put('/game/tags/:game_id&:tag', GameController.updateTag) //TESTED FINE
 router.put('/game/link/:game_id&:link', GameController.updateLink) //TESTED FINE
