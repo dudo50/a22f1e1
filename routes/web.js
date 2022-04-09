@@ -16,19 +16,19 @@ var storage = multer.diskStorage({
  var upload = multer({ storage: storage }).single("demo_image");
 const router = express.Router();
 
-router.get('/games', GameController.getAllDoc); //TESTED FINE
-router.get('/game/:gameId', GameController.getSpecificGame); //TESTED FINE
-router.get('/game/search/:searchText', GameController.getGamesByName); //TESTED FINE
+router.get('/games', GameController.getAllDoc); //TESTED FINE //USED IN FRONT END
+router.get('/game/:gameId', GameController.getSpecificGame); //TESTED FINE //USED IN FRONT END
+router.get('/game/search/:searchText', GameController.getGamesByName); //TESTED FINE //USED IN FRONT END
 router.post('/game/add', GameController.createGame) //TESTED FINE
 router.put('/game/tags/:game_id&:tag', GameController.updateTag) //TESTED FINE
 router.put('/game/link/:game_id&:link', GameController.updateLink) //TESTED FINE
 
 router.get('/profiles', UserController.getAllDoc);  //TESTED FINE
-router.post('/register', UserController.handleRegister); //TESTED FINE
-router.put('/login/:username&:password', UserController.handleLogin); //TESTED FINE
-router.put('/signout/:username&:password', UserController.handleSignout); //TESTED FINE
-router.get('/profile/get/:userId', UserController.getById); //TESTED FINE
-router.put('/profile/update/:userId&:oldPassword&:username&:password&:email', UserController.updateData); //TESTED FINE
+router.post('/register', UserController.handleRegister); //TESTED FINE // USED IN FRONT END
+router.put('/login/:username&:password', UserController.handleLogin); //TESTED FINE // USED IN FRONT END
+router.put('/signout/:username&:password', UserController.handleSignout); //TESTED FINE //USED IN FRONT END
+router.get('/profile/get/:userId', UserController.getById); //TESTED FINE //USED IN FRONT END
+router.put('/profile/update/:userId&:oldPassword&:username&:password&:email', UserController.updateData); //TESTED FINE //USED IN FRONT END
 router.get('/videoconference/profile/:username&:password', UserController.getUserDetails); //TESTED FINE
 
 

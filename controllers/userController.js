@@ -90,10 +90,10 @@ class UserController {
 
                 if( await UsrMdl.updateOne({ $and: [ {username: req.params.username}, {password : req.params.password }]}, {status:"INACTIVE"}))
                 //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
-                res.send("User signed out correctly.")
+                res.send("1")
             }
             else
-                res.send("User is not logged in!")
+                res.send("0")
         }
         catch (error) {
             console.log(error)
@@ -114,6 +114,7 @@ class UserController {
         try {
             const query_result = await UsrMdl.find({user_id: req.params.userId});
             const old_password = query_result[0]['password'];
+            
             if (old_password == req.params.oldPassword) {
                 // Is this okay for PUT method?
                 console.log("Password OK, updating profile")
