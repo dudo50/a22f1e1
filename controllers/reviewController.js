@@ -38,16 +38,16 @@ static createReview = async (req, res) => {
                     await RevMdl.create({ review_id: nove_id, game : req.body.game, user:req.body.user, stars: req.body.stars, text: req.body.text, date: now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear()})
                     await GamMdl.updateOne({game_id: req.body.game},{$push: { reviews: nove_id }})
                     await UsrMdl.updateOne({user_id: req.body.user},{$push: { reviews: nove_id }})
-                    res.send("Data written.")
+                    res.send("1")
                 }
                 else
-                    res.send("Game you try to write review for does not exist!")
+                    res.send("0")
             }
             else
-            res.send("Bad user password or INACTIVE user!")
+            res.send("0")
         }
         else
-        res.send("You already have review!")
+        res.send("0")
     }
     catch (error) {
         console.log(error)

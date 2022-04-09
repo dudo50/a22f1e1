@@ -32,9 +32,9 @@ router.put('/profile/update/:userId&:oldPassword&:username&:password&:email', Us
 router.get('/videoconference/profile/:username&:password', UserController.getUserDetails); //TESTED FINE
 
 
-router.post('/game/:password/post', ReviewController.createReview); //TESTED FINE
+router.post('/game/post', ReviewController.createReview); //TESTED FINE
 router.delete('/game/:gameId/delete/:userId&:password', ReviewController.deleteReview); //TESTED FINE
-router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTED FINE
+router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTED FINE //USED IN FRONT END
 router.put('/game/:gameId/edit/:userId&:password/:stars&:text', ReviewController.reviseReview); //TESTED FINE
 
 router.route("/upload/picture/:userId&:password").post(upload,  UserController.updatePhoto) //TESTED FINE
