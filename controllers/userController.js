@@ -123,10 +123,10 @@ class UserController {
                     email:req.params.email,
                     //profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')
                 });
-                res.send("Profile updated!")
+                res.send("1")
             }
             else {
-                res.send("Incorrect password!");
+                res.send("0");
             }
         }
         catch (error) {
