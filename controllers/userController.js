@@ -29,10 +29,12 @@ class UserController {
             //JE USER LOGNUTY?
             const query = await UsrMdl.find({username: req.params.username, password: req.params.password })
             const status = query[0]['status'];
+            const id = query[0]["user_id"]
+            const strId = id.toString();
             if(status == "INACTIVE"){
                 const response = await UsrMdl.updateOne({username: req.params.username, password : req.params.password }, {status:"ACTIVE"})
                 //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
-                res.send(response.user_id)
+                res.send(strId)
             }    
             else
                 res.send("0")
@@ -59,12 +61,13 @@ class UserController {
                 nove_id = String(Number(query_result[0]['user_id']) + 1) 
             }   // Prehod hodnotu na cislo, +1, preved naspat na string
 
-            const response = await UsrMdl.create({ username: req.body.username, password : req.body.password, email:req.body.email, user_id: nove_id})
+            await UsrMdl.create({ username: req.body.username, password : req.body.password, email:req.body.email, user_id: nove_id})
             //PO REGISTRACII HNED LOGNEME
             await UsrMdl.updateOne({ $and: [ {username: req.body.username}, {password : req.body.password }]}, {status:"ACTIVE"})
             
             //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER REGNUTY
-            res.send(response.user_id)
+            const strId = nove_id.toString();
+            res.send(strId)
             }
         }
         catch (error) {
