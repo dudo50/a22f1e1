@@ -13,7 +13,15 @@ class reviewController {
             console.log(error)
         }
     }
-
+    static getSpecificGameReviews = async (req, res) => {
+        try {
+            const result = await RevMdl.find({game: parseInt(req.params.gameId)})
+            res.send(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
 
 static createReview = async (req, res) => {
@@ -53,6 +61,7 @@ static createReview = async (req, res) => {
         console.log(error)
     }
 }
+
 
 static reviseReview = async (req, res) => {
     try {
