@@ -47,7 +47,7 @@ class UserController {
             const query = await UsrMdl.find({$or: [{username: req.body.username}, {email: req.body.email }]})
             console.log(query)
             if(query.length > 0){
-                res.send("Details already exists!")
+                res.send("0")
             }
             else{
 
@@ -64,7 +64,7 @@ class UserController {
             await UsrMdl.updateOne({ $and: [ {username: req.body.username}, {password : req.body.password }]}, {status:"ACTIVE"})
             
             //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER REGNUTY
-            res.send("User registered and logged in successfuly.")
+            res.send("1")
             }
         }
         catch (error) {
