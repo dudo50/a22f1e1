@@ -29,14 +29,13 @@ class UserController {
             //JE USER LOGNUTY?
             const query = await UsrMdl.find({username: req.params.username, password: req.params.password })
             const status = query[0]['status'];
-            console.log(query)
             if(status == "INACTIVE"){
                 await UsrMdl.updateOne({username: req.params.username, password : req.params.password }, {status:"ACTIVE"})
                 //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
-                res.send("User successfuly logged in")
+                res.send("1")
             }    
             else
-                res.send("User could not be signed in")
+                res.send("0")
         }
         catch (error) {
             console.log(error)
