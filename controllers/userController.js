@@ -28,16 +28,22 @@ class UserController {
         try {
             //JE USER LOGNUTY?
             const query = await UsrMdl.find({username: req.params.username, password: req.params.password })
-            const status = query[0]['status'];
-            const id = query[0]["user_id"]
-            const strId = id.toString();
-            if(status == "INACTIVE"){
-                const response = await UsrMdl.updateOne({username: req.params.username, password : req.params.password }, {status:"ACTIVE"})
-                //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
-                res.send(strId)
-            }    
-            else
+            if(query.length != 0)
+                {
+                const status = query[0]['status'];
+                const id = query[0]["user_id"]
+                const strId = id.toString();
+                if(status == "INACTIVE"){
+                    const response = await UsrMdl.updateOne({username: req.params.username, password : req.params.password }, {status:"ACTIVE"})
+                    //TU PRIDAT POTOM CO MA SPRAVIT FRONT END KED JE USER LOGNUTY
+                    res.send(strId)
+                }    
+                else
+                    res.send("0")
+            }
+            else{
                 res.send("0")
+            }
         }
         catch (error) {
             console.log(error)
