@@ -22,7 +22,7 @@ static createReview = async (req, res) => {
         const query = await RevMdl.find({ $and: [ {user: req.body.user}, {game : req.body.game }]})
         if(query.length==0){
             //check ci user existuje a je lognuty
-            const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.body.user}, {password : req.params.password }]})
+            const query_passwd = await UsrMdl.find({user_id: req.body.user})
             if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
                 //check ci id hry existuje
                 const query_game = await GamMdl.find({game_id: req.body.game})
@@ -60,7 +60,7 @@ static reviseReview = async (req, res) => {
         const query = await RevMdl.find({ $and: [ {user: req.params.userId}, {game : req.params.gameId }]})
         if(query.length!=0){
             const queryId = query[0]['review_id'];
-            const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.params.userId}, {password : req.params.password }]})
+            const query_passwd = await UsrMdl.find({user_id: req.params.userId})
             if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
                 //overime si ci user existuje
                 const now = new Date();
@@ -70,10 +70,10 @@ static reviseReview = async (req, res) => {
                 res.send(data)
             }
             else
-            res.send("Bad user password or INACTIVE user!")
+            res.send("0")
         }
         else
-        res.send("Review does not exist!")
+        res.send("0")
     }
     catch (error) {
         console.log(error)
@@ -87,19 +87,19 @@ static deleteReview = async (req, res) => {
         const query = await RevMdl.find({ $and: [ {user: req.params.userId}, {game : req.params.gameId }]})
         if(query.length!=0){
             //existuje user a je lognuty?
-            const query_passwd = await UsrMdl.find({ $and: [ {user_id: req.params.userId}, {password : req.params.password }]})
+            const query_passwd = await UsrMdl.find({user_id: req.params.userId})
             if(query_passwd.length != 0 && query_passwd[0]['status'] == "ACTIVE"){
                 const idecka = query[0]['review_id'];
                 await RevMdl.remove({review_id: idecka})
                 await GamMdl.updateOne({game_id: req.params.gameId},{$pull: { reviews: idecka }})
                 await UsrMdl.updateOne({user_id: req.params.userId},{$pull: { reviews: idecka }})
-                res.send("Data written.")
+                res.send("1")
             }
             else
-            res.send("Bad user password or INACTIVE user!")
+            res.send("0")
         }
         else
-        res.send("Unable to delete review that does not exist!")
+        res.send("0")
     }
     catch (error) {
         console.log(error)
