@@ -6,7 +6,7 @@ var multer = require("multer")
 
 var storage = multer.diskStorage({   
     destination: function(req, file, cb) { 
-       cb(null, './assets/profilePic/');    
+       cb(null, './controllers/assets/profilePic/');    
     }, 
     filename: function (req, file, cb) { 
        cb(null , file.originalname);   
@@ -38,7 +38,8 @@ router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTE
 router.put('/game/:gameId/edit/:userId/:stars&:text', ReviewController.reviseReview); //TESTED FINE //USED IN FRONT END
 router.get('/reviews/:gameId', ReviewController.getSpecificGameReviews); //TESTED FINE //USED IN FRONT END
 
-router.route("/upload/picture/:userId&:password").post(upload,  UserController.updatePhoto) //TESTED FINE
+router.route("/upload/picture/:userId").post(upload,  UserController.updatePhoto) //TESTED FINE
+router.get("/picture/:userId", UserController.getPhoto) //TESTED FINE
 
 module.exports = router;
 

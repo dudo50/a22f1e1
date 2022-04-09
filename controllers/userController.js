@@ -1,5 +1,6 @@
 const UsrMdl = require ('../models/User.js')
 var fs = require('fs');
+const path = require('path');
 
 class UserController {
     static getAllDoc = async (req, res) => {
@@ -109,6 +110,20 @@ class UserController {
             console.log(error)
         }
     }
+
+    static getPhoto = async (req, res) => {
+        try {
+            const query_result = await UsrMdl.find({user_id: req.params.userId});
+
+            const path = query_result[0]["profilePicture"]
+            console.log(path)
+            res.sendFile(__dirname + "\\" +path)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
     static updateData = async (req, res) => {
         console.log("Trying to update data");
         try {
@@ -137,14 +152,15 @@ class UserController {
 
     static updatePhoto = async (req, res) => {
         try {
-                const query = await UsrMdl.find({$and: [{user_id: req.params.userId}, {password: req.params.password }]})
+                const query = await UsrMdl.find({user_id: req.params.userId})
+                console.log(query)
                 if(query.length > 0){
-                    const query = await UsrMdl.find({user_id: req.params.userId, password: req.params.password })
+                    const query = await UsrMdl.find({user_id: req.params.userId})
                     const status = query[0]['status'];
                     if(status == "ACTIVE"){
                         //get file route
                         //get route to db
-                        const queryy = await UsrMdl.updateOne({$and: [{user_id: req.params.userId}, {password: req.params.password }]}, {profilePicture: req.file.path})
+                        const queryy = await UsrMdl.updateOne({user_id: req.params.userId}, {profilePicture: req.file.path})
                         console.log(queryy)
                         res.send("File uploaded")
                     }
