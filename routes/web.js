@@ -36,7 +36,7 @@ router.post('/game/post', ReviewController.createReview); //TESTED FINE //USED I
 router.delete('/game/:gameId/delete/:userId', ReviewController.deleteReview); //TESTED FINE //USED IN FRONT END
 router.get('/game/:gameId/:userId', ReviewController.getUserGameReview); //TESTED FINE //USED IN FRONT END
 router.put('/game/:gameId/edit/:userId/:stars&:text', ReviewController.reviseReview); //TESTED FINE //USED IN FRONT END
-router.get('/game/reviews/:gameId', ReviewController.getSpecificGameReviews); //TESTED FINE //USED IN FRONT END
+router.get('/reviews/:gameId', ReviewController.getSpecificGameReviews); //TESTED FINE //USED IN FRONT END
 
 router.route("/upload/picture/:userId&:password").post(upload,  UserController.updatePhoto) //TESTED FINE
 
