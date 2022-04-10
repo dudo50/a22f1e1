@@ -117,7 +117,9 @@ class UserController {
 
             const path = query_result[0]["profilePicture"]
             console.log(path)
-            res.sendFile("./app/" +path)
+            const newPath = __dirname + "/assets/profilePic/" + path
+            console.log(newPath)
+            res.sendFile(newPath)
         }
         catch (error) {
             console.log(error)
@@ -158,9 +160,10 @@ class UserController {
                     const query = await UsrMdl.find({user_id: req.params.userId})
                     const status = query[0]['status'];
                     if(status == "ACTIVE"){
+                        console.log(req.file)
                         //get file route
                         //get route to db
-                        const queryy = await UsrMdl.updateOne({user_id: req.params.userId}, {profilePicture: req.file.path})
+                        const queryy = await UsrMdl.updateOne({user_id: req.params.userId}, {profilePicture: req.file.originalname})
                         console.log(queryy)
                         res.send("File uploaded")
                     }

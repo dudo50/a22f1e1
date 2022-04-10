@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
    }
 });
  var upload = multer({ storage: storage }).single("demo_image");
-//var uploadg = multer({ storage: storageg }).single("game_image");
+var uploadg = multer({ storage: storageg }).single("game_image");
 const router = express.Router();
 
 router.get('/games', GameController.getAllDoc); //TESTED FINE //USED IN FRONT END
@@ -49,8 +49,8 @@ router.get('/reviews/:gameId', ReviewController.getSpecificGameReviews); //TESTE
 
 router.route("/upload/picture/:userId").post(upload,  UserController.updatePhoto) //TESTED FINE
 router.get("/picture/:userId", UserController.getPhoto) //TESTED FINE //USED IN FRONT END
-//router.route("/upload/game/:gameId").post(uploadg,  GameController.updateGamePhoto) //TESTED FINE
-//router.get("/gamepicture/:gameId", GameController.getGamePhoto) //TESTED FINE
+router.route("/upload/game/:gameId").post(uploadg,  GameController.updateGamePhoto) //TESTED FINE
+router.get("/gamepicture/:gameId", GameController.getGamePhoto) //TESTED FINE
 module.exports = router;
 
 //firebase

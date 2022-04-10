@@ -81,7 +81,7 @@ class GameController {
                 if(query.length > 0){
                         //get file route
                         //get route to db
-                        const queryy = await GamMdl.updateOne({game_id: req.params.gameId}, {picture: req.file.path})
+                        const queryy = await GamMdl.updateOne({game_id: req.params.gameId}, {picture: req.file.originalname})
                         console.log(queryy)
                         res.send("1")
                     }
@@ -102,7 +102,8 @@ class GameController {
 
             const path = query_result[0]["picture"]
             console.log(path)
-            const newPath = "./app/" +path
+            const newPath = __dirname + "/assets/gamePic/" + path
+            console.log(newPath)
             res.sendFile(newPath)
         }
         catch (error) {
