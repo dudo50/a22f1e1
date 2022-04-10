@@ -6,7 +6,7 @@ var multer = require("multer")
 
 var storage = multer.diskStorage({   
     destination: function(req, file, cb) { 
-       cb(null, './controllers/assets/profilePic/');    
+       cb(null, './assets/profilePic/');    
     }, 
     filename: function (req, file, cb) { 
        cb(null , file.originalname);   
@@ -15,7 +15,7 @@ var storage = multer.diskStorage({
 
  var storageg = multer.diskStorage({   
    destination: function(req, file, cb) { 
-      cb(null, './controllers/assets/gamePic/');    
+      cb(null, './assets/gamePic/');    
    }, 
    filename: function (req, file, cb) { 
       cb(null , file.originalname);   
