@@ -102,7 +102,7 @@ class GameController {
 
             const path = query_result[0]["picture"]
             console.log(path)
-            res.sendFile(__dirname + "/" +path)
+            res.sendFile("./app/" +path)
         }
         catch (error) {
             console.log(error)
