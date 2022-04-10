@@ -74,6 +74,40 @@ class GameController {
             console.log(error)
         }
     }
+    static updateGamePhoto = async (req, res) => {
+        try {
+                const query = await GamMdl.find({game_id: req.params.gameId})
+                console.log(query)
+                if(query.length > 0){
+                        //get file route
+                        //get route to db
+                        const queryy = await GamMdl.updateOne({game_id: req.params.gameId}, {picture: req.file.path})
+                        console.log(queryy)
+                        res.send("1")
+                    }
+                    else
+                    {
+                        //vymaz file
+                        fs.unlinkSync(req.file.path)
+                        res.send("0")
+                    }
+                }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    static getGamePhoto = async (req, res) => {
+        try {
+            const query_result = await GamMdl.find({game_id: req.params.gameId});
+
+            const path = query_result[0]["picture"]
+            console.log(path)
+            res.sendFile(__dirname + "/" +path)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 
