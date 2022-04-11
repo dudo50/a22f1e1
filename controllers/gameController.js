@@ -77,7 +77,7 @@ class GameController {
     static updateGamePhoto = async (req, res) => {
         try {
                 const query = await GamMdl.find({game_id: req.params.gameId})
-                console.log(query)
+                console.log(req.file)
                 if(query.length > 0){
                         //get file route
                         //get route to db

@@ -165,20 +165,20 @@ class UserController {
                         //get route to db
                         const queryy = await UsrMdl.updateOne({user_id: req.params.userId}, {profilePicture: req.file.originalname})
                         console.log(queryy)
-                        res.send("File uploaded")
+                        res.send("1")
                     }
                     else
                     {
                         //vymaz file
                         fs.unlinkSync(req.file.path)
-                        res.send("User is not logged in!")
+                        res.send("0")
                     }
                 }
                 else{
 
                     //vymaz file
                     fs.unlinkSync(req.file.path)
-                    res.send("User does not exist!")
+                    res.send("0")
                 }
             }
         
