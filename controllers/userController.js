@@ -148,7 +148,8 @@ class UserController {
             }
         }
         catch (error) {
-            console.log(error);
+            res.send("0")
+            //console.log(error);
         }
     }
 
