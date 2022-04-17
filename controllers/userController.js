@@ -131,20 +131,27 @@ class UserController {
         try {
             const query_result = await UsrMdl.find({user_id: req.params.userId});
             const old_password = query_result[0]['password'];
+            const porovnaj = await UsrMdl.find({username: req.params.username})
+            const porovnaj2 = await UsrMdl.find({email: req.params.email})
+            if (porovnaj.length==0 && porovnaj2.length==0){
             
-            if (old_password == req.params.oldPassword) {
-                // Is this okay for PUT method?
-                console.log("Password OK, updating profile")
-                await UsrMdl.updateOne({user_id: req.params.userId}, {
-                    username:req.params.username,
-                    password:req.params.password,
-                    email:req.params.email,
-                    //profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')
-                });
-                res.send("1")
+                if (old_password == req.params.oldPassword) {
+                    // Is this okay for PUT method?
+                    console.log("Password OK, updating profile")
+                    await UsrMdl.updateOne({user_id: req.params.userId}, {
+                        username:req.params.username,
+                        password:req.params.password,
+                        email:req.params.email,
+                        //profilePicture:(req.params.profilePicture).replaceAll('%2F', '/')
+                    });
+                    res.send("1")
+                }
+                else {
+                    res.send("0");
+                }
             }
-            else {
-                res.send("0");
+            else{
+                res.send("0")
             }
         }
         catch (error) {
